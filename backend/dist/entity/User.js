@@ -7,9 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-let User = class User {
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+let User = class User extends BaseEntity {
     constructor() {
+        super(...arguments);
         this.id = 0;
         this.firstName = "first";
         this.lastName = "last";

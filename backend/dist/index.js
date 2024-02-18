@@ -8,8 +8,10 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import { AppDataSource } from "./data-source.js";
 import { readFileSync } from "fs";
 import { resolvers } from "./resolvers.js";
+import "reflect-metadata";
+import dotenv from "dotenv";
+dotenv.config();
 const typeDefs = readFileSync("src/schema.graphql", { encoding: "utf-8" });
-AppDataSource.initialize().catch((error) => console.log(error));
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer({
@@ -21,4 +23,7 @@ await server.start();
 app.use(cors(), bodyParser.json(), expressMiddleware(server));
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, () => resolve()));
 console.log(`🚀 Server ready at http://localhost:4000`);
+AppDataSource.initialize()
+    .catch((error) => console.log(error))
+    .then(() => console.log("DB Connected"));
 //# sourceMappingURL=index.js.map

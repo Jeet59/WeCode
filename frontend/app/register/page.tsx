@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import Link from "next/link";
-export default function Login() {
+function Register() {
   return (
     <div className={styles.loginPage}>
       <div className={styles.WeCode}>WeCode</div>
@@ -9,10 +9,12 @@ export default function Login() {
           <input type="text" placeholder="username" />
           <input type="text" placeholder="password" />
           <button>
-            <Link href={"/home"}>Login</Link>
+            <Link href={"/home"}>Register</Link>
           </button>
         </form>
       </div>
     </div>
   );
 }
+
+export default Register;
