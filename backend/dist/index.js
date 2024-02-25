@@ -14,16 +14,18 @@ dotenv.config();
 const typeDefs = readFileSync("src/schema.graphql", { encoding: "utf-8" });
 const app = express();
 const httpServer = http.createServer(app);
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-});
-await server.start();
-app.use(cors(), bodyParser.json(), expressMiddleware(server));
-await new Promise((resolve) => httpServer.listen({ port: 4000 }, () => resolve()));
-console.log(`🚀 Server ready at http://localhost:4000`);
-AppDataSource.initialize()
+async function startApollo() {
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    });
+    await server.start();
+    app.use(cors(), bodyParser.json(), expressMiddleware(server));
+    await new Promise((resolve) => httpServer.listen({ port: 4000 }, () => resolve()));
+}
+await AppDataSource.initialize()
     .catch((error) => console.log(error))
-    .then(() => console.log("DB Connected"));
+    .then(() => startApollo())
+    .then(() => console.log(`🚀 Server ready at http://localhost:4000`));
 //# sourceMappingURL=index.js.map

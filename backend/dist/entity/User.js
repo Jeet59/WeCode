@@ -12,9 +12,9 @@ let User = class User extends BaseEntity {
     constructor() {
         super(...arguments);
         this.id = 0;
-        this.firstName = "first";
-        this.lastName = "last";
-        this.age = 20;
+        this.username = "Username";
+        this.email = "Email";
+        this.password = "Password";
     }
 };
 __decorate([
@@ -24,15 +24,15 @@ __decorate([
 __decorate([
     Column(),
     __metadata("design:type", String)
-], User.prototype, "firstName", void 0);
+], User.prototype, "username", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
-], User.prototype, "lastName", void 0);
+], User.prototype, "email", void 0);
 __decorate([
     Column(),
-    __metadata("design:type", Number)
-], User.prototype, "age", void 0);
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
 User = __decorate([
     Entity()
 ], User);

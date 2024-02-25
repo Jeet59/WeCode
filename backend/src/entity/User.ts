@@ -6,11 +6,11 @@ export class User extends BaseEntity {
   id: number = 0;
 
   @Column()
-  firstName: string = "first";
+  username: String = "Username";
 
   @Column()
-  lastName: string = "last";
+  email: String = "Email";
 
   @Column()
-  age: number = 20;
+  password: String = "Password";
 }
