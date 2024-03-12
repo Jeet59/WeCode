@@ -7,46 +7,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, } from "typeorm";
+import { User } from "./User.js";
 import { Post } from "./Post.js";
-import { Comment } from "./Comment.js";
-let User = class User extends BaseEntity {
+let Comment = class Comment {
     constructor() {
-        super(...arguments);
         this.id = 0;
-        this.username = "Username";
-        this.email = "Email";
-        this.password = "Password";
-        this.posts = null;
-        this.comments = null;
+        this.content = "";
+        this.createdAt = new Date();
+        this.author = null;
+        this.post = null;
     }
 };
 __decorate([
     PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Comment.prototype, "id", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], Comment.prototype, "content", void 0);
 __decorate([
-    Column(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
+    Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" }),
+    __metadata("design:type", Date)
+], Comment.prototype, "createdAt", void 0);
 __decorate([
-    Column(),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    OneToMany(() => Post, (post) => post.author),
+    ManyToOne(() => User, (user) => user.comments),
     __metadata("design:type", Object)
-], User.prototype, "posts", void 0);
+], Comment.prototype, "author", void 0);
 __decorate([
-    OneToMany(() => Comment, (comment) => comment.author),
+    ManyToOne(() => Post, (post) => post.comments),
     __metadata("design:type", Object)
-], User.prototype, "comments", void 0);
-User = __decorate([
+], Comment.prototype, "post", void 0);
+Comment = __decorate([
     Entity()
-], User);
-export { User };
-//# sourceMappingURL=User.js.map
+], Comment);
+export { Comment };
+//# sourceMappingURL=Comment.js.map

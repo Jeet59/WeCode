@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
-
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
+import { Post } from "./Post.js";
+import { Comment } from "./Comment.js";
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -13,4 +20,10 @@ export class User extends BaseEntity {
 
   @Column()
   password: String = "Password";
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[] | null = null;
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[] | null = null;
 }

@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entity/User.js";
+import { Post } from "./entity/Post.js";
+import { Comment } from "./entity/Comment.js";
 export const AppDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
@@ -10,7 +12,7 @@ export const AppDataSource = new DataSource({
     database: "WeCode",
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, Post, Comment],
     migrations: [],
     subscribers: [],
 });

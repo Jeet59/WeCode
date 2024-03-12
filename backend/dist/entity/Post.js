@@ -7,46 +7,50 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, } from "typeorm";
-import { Post } from "./Post.js";
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, ManyToOne, BaseEntity, OneToMany, } from "typeorm";
+import { User } from "./User.js";
 import { Comment } from "./Comment.js";
-let User = class User extends BaseEntity {
+let Post = class Post extends BaseEntity {
     constructor() {
         super(...arguments);
         this.id = 0;
-        this.username = "Username";
-        this.email = "Email";
-        this.password = "Password";
-        this.posts = null;
+        this.content = "";
+        this.createdAt = new Date();
+        this.author = null;
         this.comments = null;
+    }
+    setCreatedAt() {
+        this.createdAt = new Date();
     }
 };
 __decorate([
     PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], User.prototype, "id", void 0);
+], Post.prototype, "id", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], Post.prototype, "content", void 0);
 __decorate([
-    Column(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
+    Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" }),
+    __metadata("design:type", Date)
+], Post.prototype, "createdAt", void 0);
 __decorate([
-    Column(),
-    __metadata("design:type", String)
-], User.prototype, "password", void 0);
-__decorate([
-    OneToMany(() => Post, (post) => post.author),
+    ManyToOne(() => User, (user) => user.posts),
     __metadata("design:type", Object)
-], User.prototype, "posts", void 0);
+], Post.prototype, "author", void 0);
 __decorate([
-    OneToMany(() => Comment, (comment) => comment.author),
+    OneToMany(() => Comment, (comment) => comment.post),
     __metadata("design:type", Object)
-], User.prototype, "comments", void 0);
-User = __decorate([
+], Post.prototype, "comments", void 0);
+__decorate([
+    BeforeInsert(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], Post.prototype, "setCreatedAt", null);
+Post = __decorate([
     Entity()
-], User);
-export { User };
-//# sourceMappingURL=User.js.map
+], Post);
+export { Post };
+//# sourceMappingURL=Post.js.map

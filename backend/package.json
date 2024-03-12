@@ -33,9 +33,12 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.3",
     "dotenv": "^16.4.1",
+    "graphql-ws": "^5.15.0",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "0.3.20"
+    "typeorm": "0.3.20",
+    "ws": "^8.16.0"
   }
 }
