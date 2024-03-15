@@ -22,10 +22,15 @@ export class Post extends BaseEntity {
   createdAt: Date = new Date();
 
   @ManyToOne(() => User, (user) => user.posts)
-  author: User | null = null;
+  author: User | null;
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[] | null = null;
+
+  constructor(user: User | null) {
+    super();
+    this.author = user;
+  }
 
   @BeforeInsert()
   setCreatedAt() {

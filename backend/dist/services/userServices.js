@@ -1,15 +1,25 @@
 import { AppDataSource } from "../data-source.js";
 import { User } from "../entity/User.js";
 export async function getUsers() {
-    const users = await AppDataSource.getRepository(User).find();
+    const users = await AppDataSource.getRepository(User).find({
+        relations: {
+            posts: true,
+            comments: true,
+        },
+    });
     return users;
 }
 export async function getUser(username, password) {
-    const user = await AppDataSource.getRepository(User)
-        .createQueryBuilder("user")
-        .where("user.username = :username", { username: username })
-        .andWhere("user.password = :password", { password: password })
-        .getOne();
+    const user = await AppDataSource.getRepository(User).findOne({
+        where: {
+            username: username,
+            password: password,
+        },
+        relations: {
+            posts: true,
+            comments: true,
+        },
+    });
     return user;
 }
 export async function addUser(username, email, password) {
@@ -19,7 +29,13 @@ export async function addUser(username, email, password) {
         password: password,
     };
     await AppDataSource.getRepository(User).save(user);
-    const newUser = await AppDataSource.getRepository(User).findBy(user);
+    const newUser = await AppDataSource.getRepository(User).findOne({
+        where: {
+            username: username,
+            email: email,
+            password: password,
+        },
+    });
     return newUser;
 }
 //# sourceMappingURL=userServices.js.map

@@ -7,16 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity, } from "typeorm";
 import { User } from "./User.js";
 import { Post } from "./Post.js";
-let Comment = class Comment {
-    constructor() {
+let Comment = class Comment extends BaseEntity {
+    constructor(author, post) {
+        super();
         this.id = 0;
         this.content = "";
         this.createdAt = new Date();
-        this.author = null;
-        this.post = null;
+        this.author = author;
+        this.post = post;
     }
 };
 __decorate([
@@ -40,7 +41,8 @@ __decorate([
     __metadata("design:type", Object)
 ], Comment.prototype, "post", void 0);
 Comment = __decorate([
-    Entity()
+    Entity(),
+    __metadata("design:paramtypes", [Object, Object])
 ], Comment);
 export { Comment };
 //# sourceMappingURL=Comment.js.map

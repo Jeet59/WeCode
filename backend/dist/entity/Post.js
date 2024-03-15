@@ -11,13 +11,13 @@ import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, ManyToOne, BaseEn
 import { User } from "./User.js";
 import { Comment } from "./Comment.js";
 let Post = class Post extends BaseEntity {
-    constructor() {
-        super(...arguments);
+    constructor(user) {
+        super();
         this.id = 0;
         this.content = "";
         this.createdAt = new Date();
-        this.author = null;
         this.comments = null;
+        this.author = user;
     }
     setCreatedAt() {
         this.createdAt = new Date();
@@ -50,7 +50,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], Post.prototype, "setCreatedAt", null);
 Post = __decorate([
-    Entity()
+    Entity(),
+    __metadata("design:paramtypes", [Object])
 ], Post);
 export { Post };
 //# sourceMappingURL=Post.js.map

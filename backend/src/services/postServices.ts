@@ -3,7 +3,12 @@ import { Post } from "../entity/Post.js";
 import { User } from "../entity/User.js";
 
 export async function getPosts() {
-  const posts = await AppDataSource.getRepository(Post).find();
+  const posts = await AppDataSource.getRepository(Post).find({
+    relations: {
+      author: true,
+      comments: true,
+    },
+  });
   return posts;
 }
 
@@ -11,6 +16,10 @@ export async function getPost(id: number) {
   const Cpost = await AppDataSource.getRepository(Post).findOne({
     where: {
       id: id,
+    },
+    relations: {
+      author: true,
+      comments: true,
     },
   });
   return Cpost;
@@ -26,12 +35,10 @@ export async function addPost(content: string, userId: number): Promise<Post> {
     throw new Error("User not found");
   }
 
-  const newPost: Post = new Post();
+  const newPost: Post = new Post(user);
   newPost.content = content;
   newPost.createdAt = new Date();
   newPost.author = user;
-
   await AppDataSource.getRepository(Post).save(newPost);
-
   return newPost;
 }

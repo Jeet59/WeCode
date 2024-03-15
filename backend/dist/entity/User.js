@@ -17,8 +17,8 @@ let User = class User extends BaseEntity {
         this.username = "Username";
         this.email = "Email";
         this.password = "Password";
-        this.posts = null;
-        this.comments = null;
+        this.posts = undefined;
+        this.comments = undefined;
     }
 };
 __decorate([

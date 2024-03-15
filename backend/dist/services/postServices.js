@@ -2,13 +2,22 @@ import { AppDataSource } from "../data-source.js";
 import { Post } from "../entity/Post.js";
 import { User } from "../entity/User.js";
 export async function getPosts() {
-    const posts = await AppDataSource.getRepository(Post).find();
+    const posts = await AppDataSource.getRepository(Post).find({
+        relations: {
+            author: true,
+            comments: true,
+        },
+    });
     return posts;
 }
 export async function getPost(id) {
     const Cpost = await AppDataSource.getRepository(Post).findOne({
         where: {
             id: id,
+        },
+        relations: {
+            author: true,
+            comments: true,
         },
     });
     return Cpost;
@@ -22,7 +31,7 @@ export async function addPost(content, userId) {
     if (!user) {
         throw new Error("User not found");
     }
-    const newPost = new Post();
+    const newPost = new Post(user);
     newPost.content = content;
     newPost.createdAt = new Date();
     newPost.author = user;

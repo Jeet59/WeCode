@@ -7,15 +7,28 @@ export async function getComments(id) {
     const post = await getPost(id);
     if (!post)
         throw new Error("Post not FOund!!");
-    if (!post.comments) {
+    const comments = await AppDataSource.getRepository(Comment).find({
+        where: {
+            post: post,
+        },
+        relations: {
+            author: true,
+            post: true,
+        },
+    });
+    if (!comments) {
         console.log("Post has no comments");
     }
-    return post.comments;
+    return comments;
 }
 export async function getComment(id) {
     const comment = await AppDataSource.getRepository(Comment).findOne({
         where: {
             id: id,
+        },
+        relations: {
+            author: true,
+            post: true,
         },
     });
     return comment;
@@ -33,10 +46,14 @@ export async function addComment(content, postId, userId) {
         where: {
             id: userId,
         },
+        relations: {
+            posts: true,
+            comments: true,
+        },
     });
     if (!user)
         throw new Error("No user associated with the comment!");
-    const newComment = new Comment();
+    const newComment = new Comment(user, post);
     newComment.content = content;
     newComment.createdAt = new Date();
     newComment.post = post;
