@@ -4,10 +4,12 @@ import ProfileCard from "@/components/ProfileCard/ProfileCard";
 import Feed from "@/components/Feed/Feed";
 export default function Home() {
   return (
-    <div className={styles.home}>
-      <ProfileCard />
-      <Feed />
-      <News />
+    <div className={styles.homeContainer}>
+      <div className={styles.home}>
+        <ProfileCard />
+        <Feed />
+        <News />
+      </div>
     </div>
   );
 }

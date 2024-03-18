@@ -4,6 +4,12 @@
   background-color: #1c2434;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.HomePage::-webkit-scrollbar {
+  width: 0;
 }
 
 .children {

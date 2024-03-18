@@ -3,7 +3,78 @@
   justify-content: center;
   align-items: center;
   width: 600px;
-  height: 471px;
+  height: 470px;
   background-color: black;
-  color: aliceblue;
+  color: rgb(0, 0, 0);
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.Feed::-webkit-scrollbar {
+  width: 0;
+}
+
+.PostsContainer {
+  display: flex;
+  overflow-y: auto;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 95%;
+}
+.PostsContainer::-webkit-scrollbar {
+  width: 0;
+}
+.Post {
+  background-color: #fff;
+  width: 70%;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2%;
+  height: 100%;
+}
+
+.PostHeader {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.Username {
+  font-weight: bold;
+}
+
+.Timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+.Content {
+  height: 40%;
+}
+
+.CommentsContainer {
+  height: 30%;
+  overflow-y: auto;
+}
+
+.CommentsContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.Comment {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2%;
+  align-items: center;
+  justify-content: center;
+  background-color: #575757;
+  border-radius: 4px;
+  font-size: 100%;
+  height: 80%;
+  color: #fff;
 }
