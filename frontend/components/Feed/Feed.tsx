@@ -1,6 +1,6 @@
-import getPosts from "@/app/actions/getPosts";
+import getPosts from "@/actions/getPosts";
 import styles from "./Feed.module.css";
-import { Post } from "@/app/actions/getPosts";
+import { Post } from "@/actions/getPosts";
 
 export default async function Feed() {
   let posts: Post[] = [];

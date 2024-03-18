@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { getClient } from "../ApolloClient";
+import { getClient } from "../app/ApolloClient";
 
 export interface Post {
   id: string;

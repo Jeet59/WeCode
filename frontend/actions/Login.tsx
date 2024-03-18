@@ -1,6 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import { getClient } from "../ApolloClient";
+import { getClient } from "../app/ApolloClient";
 import { gql } from "@apollo/client";
 import { cookies } from "next/headers";
 

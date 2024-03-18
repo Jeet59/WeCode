@@ -1,6 +1,6 @@
 "use client";
 import styles from "./page.module.css";
-import Login from "./actions/Login";
+import Login from "../actions/Login";
 export default function Page() {
   return (
     <div className={styles.loginPage}>
