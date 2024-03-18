@@ -21,9 +21,13 @@ export class User extends BaseEntity {
   @Column()
   password: String = "Password";
 
-  @OneToMany(() => Post, (post) => post.author)
-  posts: Post[] | undefined = undefined;
+  @OneToMany(() => Post, (post) => post.author, {
+    eager: true,
+  })
+  posts: Post[] | null = null;
 
-  @OneToMany(() => Comment, (comment) => comment.author)
-  comments: Comment[] | undefined = undefined;
+  @OneToMany(() => Comment, (comment) => comment.author, {
+    eager: true,
+  })
+  comments: Comment[] | null = null;
 }

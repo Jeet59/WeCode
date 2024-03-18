@@ -27,6 +27,10 @@ export async function addPost(content, userId) {
         where: {
             id: userId,
         },
+        relations: {
+            posts: true,
+            comments: true,
+        },
     });
     if (!user) {
         throw new Error("User not found");
@@ -35,7 +39,12 @@ export async function addPost(content, userId) {
     newPost.content = content;
     newPost.createdAt = new Date();
     newPost.author = user;
+    if (!user.posts)
+        user.posts = [newPost];
+    else
+        user.posts.push(newPost);
     await AppDataSource.getRepository(Post).save(newPost);
+    await AppDataSource.getRepository(User).save(user);
     return newPost;
 }
 //# sourceMappingURL=postServices.js.map

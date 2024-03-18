@@ -4,9 +4,17 @@ import { Comment } from "../entity/Comment.js";
 import { getPost } from "./postServices.js";
 import { User } from "../entity/User.js";
 
-export async function getComments(id: number): Promise<Comment[] | null> {
-  const post = await getPost(id);
-  if (!post) throw new Error("Post not FOund!!");
+export async function getComments(id: number) {
+  const post = await AppDataSource.getRepository(Post).findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      author: true,
+      comments: true,
+    },
+  });
+  if (!post) throw new Error("Post not Found!!");
   const comments = await AppDataSource.getRepository(Comment).find({
     where: {
       post: post,
@@ -43,6 +51,10 @@ export async function addComment(
     where: {
       id: postId,
     },
+    relations: {
+      author: true,
+      comments: true,
+    },
   });
   if (!post) {
     throw new Error("Post not found");
@@ -62,8 +74,11 @@ export async function addComment(
   newComment.createdAt = new Date();
   newComment.post = post;
   newComment.author = user;
+  if (!user.comments) user.comments = [newComment];
+  else user.comments.push(newComment);
 
   await AppDataSource.getRepository(Comment).save(newComment);
+  await AppDataSource.getRepository(User).save(user);
 
   return newComment;
 }

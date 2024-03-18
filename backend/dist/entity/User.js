@@ -17,8 +17,8 @@ let User = class User extends BaseEntity {
         this.username = "Username";
         this.email = "Email";
         this.password = "Password";
-        this.posts = undefined;
-        this.comments = undefined;
+        this.posts = null;
+        this.comments = null;
     }
 };
 __decorate([
@@ -38,11 +38,15 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    OneToMany(() => Post, (post) => post.author),
+    OneToMany(() => Post, (post) => post.author, {
+        eager: true,
+    }),
     __metadata("design:type", Object)
 ], User.prototype, "posts", void 0);
 __decorate([
-    OneToMany(() => Comment, (comment) => comment.author),
+    OneToMany(() => Comment, (comment) => comment.author, {
+        eager: true,
+    }),
     __metadata("design:type", Object)
 ], User.prototype, "comments", void 0);
 User = __decorate([

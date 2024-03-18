@@ -24,7 +24,9 @@ export class Post extends BaseEntity {
   @ManyToOne(() => User, (user) => user.posts)
   author: User | null;
 
-  @OneToMany(() => Comment, (comment) => comment.post)
+  @OneToMany(() => Comment, (comment) => comment.post, {
+    eager: true,
+  })
   comments: Comment[] | null = null;
 
   constructor(user: User | null) {

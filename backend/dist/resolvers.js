@@ -31,7 +31,7 @@ export const resolvers = {
     Mutation: {
         addUser: async (_, { username, email, password, }) => {
             try {
-                const newUser = await addUser(username, password, email);
+                const newUser = await addUser(username, email, password);
                 return newUser;
             }
             catch (error) {

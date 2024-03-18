@@ -29,6 +29,10 @@ export async function addPost(content: string, userId: number): Promise<Post> {
     where: {
       id: userId,
     },
+    relations: {
+      posts: true,
+      comments: true,
+    },
   });
 
   if (!user) {
@@ -39,6 +43,9 @@ export async function addPost(content: string, userId: number): Promise<Post> {
   newPost.content = content;
   newPost.createdAt = new Date();
   newPost.author = user;
+  if (!user.posts) user.posts = [newPost];
+  else user.posts.push(newPost);
   await AppDataSource.getRepository(Post).save(newPost);
+  await AppDataSource.getRepository(User).save(user);
   return newPost;
 }

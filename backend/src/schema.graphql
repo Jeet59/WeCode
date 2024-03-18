@@ -3,14 +3,14 @@ type User {
   username: String
   email: String
   password: String
-  post: [Post]
+  posts: [Post]
   comments: [Comment]
 }
 type Post {
   id: ID!
   content: String!
   createdAt: String!
-  author: User!
+  author: User
   comments: [Comment]
 }
 
@@ -18,8 +18,8 @@ type Comment {
   id: ID!
   content: String!
   createdAt: String!
-  author: User!
-  post: Post!
+  author: User
+  post: Post
 }
 type Query {
   getUser(username: String, password: String): User

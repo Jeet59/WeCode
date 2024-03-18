@@ -23,11 +23,10 @@ export async function getUser(username, password) {
     return user;
 }
 export async function addUser(username, email, password) {
-    const user = {
-        username: username,
-        email: email,
-        password: password,
-    };
+    const user = new User();
+    user.username = username;
+    user.email = email;
+    user.password = password;
     await AppDataSource.getRepository(User).save(user);
     const newUser = await AppDataSource.getRepository(User).findOne({
         where: {

@@ -45,7 +45,7 @@ export const resolvers = {
       }: { username: String; email: String; password: String }
     ) => {
       try {
-        const newUser = await addUser(username, password, email);
+        const newUser = await addUser(username, email, password);
         return newUser;
       } catch (error) {
         console.error("Error adding user:", error);

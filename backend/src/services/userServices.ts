@@ -29,11 +29,10 @@ export async function addUser(
   email: String,
   password: String
 ) {
-  const user = {
-    username: username,
-    email: email,
-    password: password,
-  };
+  const user = new User();
+  user.username = username;
+  user.email = email;
+  user.password = password;
   await AppDataSource.getRepository(User).save(user);
   const newUser = await AppDataSource.getRepository(User).findOne({
     where: {

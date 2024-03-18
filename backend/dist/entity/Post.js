@@ -40,7 +40,9 @@ __decorate([
     __metadata("design:type", Object)
 ], Post.prototype, "author", void 0);
 __decorate([
-    OneToMany(() => Comment, (comment) => comment.post),
+    OneToMany(() => Comment, (comment) => comment.post, {
+        eager: true,
+    }),
     __metadata("design:type", Object)
 ], Post.prototype, "comments", void 0);
 __decorate([
